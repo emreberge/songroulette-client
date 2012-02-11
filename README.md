@@ -12,5 +12,6 @@ Installing
 * Goto: `System Preferences -> Flash Player -> Advanced -> Trusted Location Settings...` and add root, "/" to the list. (Well we don't know where spotify stores the file, this is a hack)
 * Run `install-Spotify-app.sh` script 
 
-### Starting
+Starting
+--------
 At the search bar type `spotify:app:artistcamt`
