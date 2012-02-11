@@ -9,5 +9,5 @@
     "SupportedLanguages": [
         "en"
     ],
-    "RequiredPermissions": ["http://*.opentok.com/"]
+    "RequiredPermissions": ["http://*.opentok.com/", "http://*.tokbox.com"]
 }
