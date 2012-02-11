@@ -1,4 +1,8 @@
-"use strict"
+var sp = getSpotifyApi(1);
+var m = sp.require('sp://import/scripts/api/models');
 
-sp = getSpotifyApi(1);
+exports.init = init;
 
+function init() {
+    console.log("init()");
+}   
