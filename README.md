@@ -1,7 +1,7 @@
 Artist Cam
 ==========
 
-This project is made at San Francisco music hack day.
+This project is made at San Francisco music hack day, February 11 2012.
 
 Installing
 ----------
@@ -14,4 +14,4 @@ Installing
 
 Starting
 --------
-At the search bar type `spotify:app:artistcamt`
+In the search bar, type: `spotify:app:artistcam`
