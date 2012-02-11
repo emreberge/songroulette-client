@@ -28,6 +28,6 @@ function updatePageWithTrackDetails() {
         header.innerText = "Nothing playing!";
     } else {
         var track = playerTrackInfo.data;
-        header.innerHTML = track.name + " on the album " + track.album.name + " by " + track.album.artist.name + ".";
+        header.innerHTML = "People listening to " + track.album.artist.name;
     }
 }
