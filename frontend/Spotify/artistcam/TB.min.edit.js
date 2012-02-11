@@ -2736,8 +2736,7 @@ TB = function() {
 
 			checkSystemRequirements: function() {
 				debug("TB.checkSystemRequirements()");
-				//return swfobject.hasFlashPlayerVersion(MIN_FLASH_VERSION) ? this.HAS_REQUIREMENTS : this.OLD_FLASH_VERSION;
-                                return this.HAS_REQUIREMENTS;
+				return swfobject.hasFlashPlayerVersion(MIN_FLASH_VERSION) ? this.HAS_REQUIREMENTS : this.OLD_FLASH_VERSION;
 			},
 
 			//--------------------------------------
