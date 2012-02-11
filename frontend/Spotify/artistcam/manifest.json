@@ -1,0 +1,13 @@
+{
+    "BundleType": "Application",
+    "AppIcon": {
+        "36x18": "tutorial.png"
+    },
+    "AppName": {
+        "en": "Artist Cam"
+    },
+    "SupportedLanguages": [
+        "en"
+    ],
+    "RequiredPermissions": ["http://*.opentok.com/"]
+}
