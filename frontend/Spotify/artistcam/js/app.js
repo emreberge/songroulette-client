@@ -5,8 +5,6 @@ var currentArtistURI;
 
 exports.init = init;
 
-var sessionResolver = new SessionResolver();
-
 function init() {
 
     updatePageWithTrackDetails();
@@ -43,10 +41,18 @@ function updatePageWithTrackDetails() {
     }
 }
 
+var currentArtistURI;
+
 function joinRoomForArtistURI(artistURI){
-	disconnectCurrentSession();
+	currentArtistURI = artistURI;
 	debug("joining new room");
-	sessionResolver.sessionIdWithArtistURI(artistURI);
-	//var token = sessionResolver.tokenWithSessionId(sessionId);
-	//connectWithSession(sessionId);
+	var sessionResolver = new AsyncSessionResolver(sessionResolverHandler);
+	sessionResolver.sessionIDAndTokenWithArtistURI(artistURI);
+}
+
+function sessionResolverHandler(sessionID, token, artistURI){
+	if (currentArtistURI === artistURI) {
+		disconnectCurrentSession();
+		connectWithSessionAndToken(sessionID, token);
+	}
 }

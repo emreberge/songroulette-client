@@ -1,7 +1,7 @@
 
 var apiKey = '11827222';
-var currentSessionId = '14685d1ac5907f4a2814fed28294d3f797f34955';
-var token = 'devtoken';           
+var currentSessionID = '';
+var currentToken = '';
 var session = null;
 var replaceElementId = 'tokbox';
 TB.setLogLevel(TB.DEBUG);
@@ -9,30 +9,27 @@ TB.setLogLevel(TB.DEBUG);
 var isDisconnecting = false;
 var isWaitingToConnect = false;
 
-function connect() {
-	connectWithSession(currentSessionId);
-}
-
-function connectWithSession(sessionId) {
-	currentSessionId = sessionId
+function connectWithSessionAndToken(sessionID, token) {
+	currentSessionID = sessionID
+	currentToken = token;
   if (!isDisconnecting) {
-		connectWithCurrentSessionId();
+		connectWithCurrentSessionID();
 	} else {
-	  debug("waiting to connect with sessionId: " + currentSessionId);
+	  debug("waiting to connect with sessionID: " + currentSessionID);
 		isWaitingToConnect = true;
 	}
 }
 
-function connectWithCurrentSessionId() {
-  debug("connecting with sessionId: " + currentSessionId);
+function connectWithCurrentSessionID() {
+  debug("connecting with sessionID: " + currentSessionID);
   isWaitingToConnect = false;
-	session = TB.initSession(currentSessionId);
+	session = TB.initSession(currentSessionID);
 	session.addEventListener('sessionConnected', sessionConnectedHandler);
 	session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
 	session.addEventListener('streamCreated', streamCreatedHandler);
 	session.addEventListener('connectionCreated', connectionCreatedHandler);
 	session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
-	session.connect(apiKey, token);
+	session.connect(apiKey, currentToken);
 }
 
 function disconnectCurrentSession() {
@@ -45,19 +42,21 @@ function disconnectCurrentSession() {
 
 function sessionDisconnectedHandler (event) {
 	isDisconnecting = false;
+	removeEverythingInContentDivAfterDisconnect();
+	if (isWaitingToConnect) {
+		debug("was waiting to connect. Connecting after a disconnect with sessionID: " + currentSessionID);
+		connectWithSessionAndToken(currentSessionID, currentToken);
+	}
+}
 
-  var c = document.getElementById('content');
+function removeEverythingInContentDivAfterDisconnect() {
+	var c = document.getElementById('content');
 
   if (c.hasChildNodes()) {
     while (c.childNodes.length >= 1) {
      c.removeChild(c.firstChild);
     }
   }
-
-	if (isWaitingToConnect) {
-		debug("was waiting to connect. Connecting after a disconnect with sessionId: " + currentSessionId);
-		connectWithSession(currentSessionId);
-	}
 }
 
 var publisher;
@@ -117,6 +116,7 @@ function subscribeToStreams(streams) {
 }
 
 function connectionCreatedHandler(event) {
+
 }
 
 function connectionDestroyedHandler(event) {

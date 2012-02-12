@@ -1,8 +1,9 @@
 <html>
 <head>
-  <meta charset="utf-8"/>
-  <link rel="stylesheet" href="sp://import/css/eve.css"/>
-  <link rel="stylesheet" href="sp://artistcam/css/default.css"/>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="sp://import/css/eve.css">
+  <link rel="stylesheet" href="sp://artistcam/css/default.css">
+	<script src="sp://artistcam/js/config.js"></script>
 	<script src="sp://artistcam/js/debug.js"></script>
   <script src="sp://artistcam/js/tb-0.91.js"></script>
     <!-- Chat -->
@@ -12,8 +13,9 @@
     <script type="text/javascript" src="js/chat.js"></script>
     <!-- -->
 </head>
- 
-<body onload="sp = getSpotifyApi(1); app = sp.require('js/app'); app.init();">>
+
+
+<body onload="sp = getSpotifyApi(1); app = sp.require('js/app'); app.init();">
   <div id="header"><img src="../img/logo.png" /></div>
   <div id="artist"></div>
   <div id="chat">
@@ -25,11 +27,5 @@
 </body>
 </html>
 <script src="sp://artistcam/js/tb.js"></script>
-<script src="sp://artistcam/js/network.js"></script>
-
-<script>
-var test = document.createElement('p');
-text = document.createTextNode("Hello World!");
-test.appendChild(text);
-
-</script>
+<script src="sp://artistcam/js/servicebase.js"></script>
+<script src="sp://artistcam/js/sessionservice.js"></script>
