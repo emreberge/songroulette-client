@@ -43,7 +43,6 @@ function getTrack() {
 var currentArtistURI;
 
 function joinRoomForArtistURI(artistURI){
-	debug("joining new room");
 	var sessionResolver = new AsyncSessionResolver(sessionResolverHandler);
 	sessionResolver.sessionIDAndTokenWithArtistURI(artistURI);
 }
@@ -68,11 +67,15 @@ function joinANewRoom(sessionID, token) {
 }
 
 function didJoinANewRoom(session) {
+	console.log("didJoinANewRoom");
+	console.log(session);
 	startChat(session.sessionId,'Haxor');
 	startTrackingTracks(session.sessionId, session.connection.connectionId);
 }
 
 function willLeaveRoom(session) {
+  console.log("willLeaveRoom");
+	console.log(session);
 	stopChat(session.sessionId);
 	endTrackingTracks(session.sessionId, session.connection.connectionId);
 }

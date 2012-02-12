@@ -8,6 +8,7 @@ TB.setLogLevel(TB.DEBUG);
 
 var isDisconnecting = false;
 var isWaitingToConnect = false;
+var isFullyConnected = false;
 
 var sessionEventListener = null;
 
@@ -42,9 +43,11 @@ function disconnectCurrentSession() {
   if (session != null) {
 	  debug("disconnecting..");
 		isDisconnecting = true;
-		sessionEventListener.willEndSession(session);
+		if (isFullyConnected)
+			sessionEventListener.willEndSession(session);
 		session.disconnect();
 	}
+	isFullyConnected = false;
 }
 
 function sessionDisconnectedHandler (event) {
@@ -69,6 +72,7 @@ function removeEverythingInContentDivAfterDisconnect() {
 var publisher;
 
 function sessionConnectedHandler(event) {
+	isFullyConnected = true;
 	console.log(event);
   insertReplaceElementInContent();
   publisher = session.publish(replaceElementId);
