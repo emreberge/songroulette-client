@@ -29,7 +29,6 @@ function stopTrackingRoom() {
 }
 
 function songChanged(trackId) {
-    getRoom(myRoomID).child(myUserID)set({track:trackId});
-
+    getRoom(myRoomID).child(myUserID).set({track:trackId});
 }
 
