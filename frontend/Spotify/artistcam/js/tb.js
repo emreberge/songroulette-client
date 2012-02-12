@@ -107,6 +107,10 @@ function insertReplaceElementInContent() {
 	boxDiv.setAttribute('id', session.connection.connectionId);
 	boxDiv.setAttribute('class', 'box');
 
+  var corner = document.createElement('div');
+  corner.setAttribute('class', 'corners');
+  boxDiv.appendChild(corner);
+
 	var video = document.createElement('div');
 	video.setAttribute('class', 'video');
 	boxDiv.appendChild(video);
@@ -142,7 +146,16 @@ function subscribeToStreams(streams) {
     box.setAttribute('id', connectionId);
     box.setAttribute('class', 'box');
     document.getElementById('content').appendChild(box);
-    
+
+    var corner = document.createElement('div');
+    corner.setAttribute('class', 'corners');
+    box.appendChild(corner);
+
+    var stalk = document.createElement('div');
+    stalk.setAttribute('class', 'stalk');
+    stalk.setAttribute('id', 'stalk_'+connectionId);
+    box.appendChild(stalk);
+
       var video = document.createElement('div');
       video.setAttribute('class', 'video');
       box.appendChild(video);
@@ -161,6 +174,7 @@ function subscribeToStreams(streams) {
 }
 
 function connectionCreatedHandler(event) {
+	sessionEventListener.newConnectionEstablished();
 }
 
 function connectionDestroyedHandler(event) {
@@ -171,6 +185,9 @@ function connectionDestroyedHandler(event) {
 
 function removeDivForConnection(connection) {
   var c = document.getElementById('content');
-  var divId = document.getElementById(connection.connectionId);
-  c.removeChild(divId);
+	var connectionId = connection.connectionId;
+	if (session.connection.connectionId != connectionId){
+		var divId = document.getElementById(connection.connectionId);
+		c.removeChild(divId);
+	}
 }

@@ -44,7 +44,7 @@ function updateMyTrack() {
 		var connection = session.connection;
 		if (connection) {
 			songChanged(getTrack().uri);
-            setMySong(username, getTrack().uri);
+			setMySong(username, getTrack().uri);
 		}
 	}
 }
@@ -100,14 +100,17 @@ function onRoomChange (value) {
 	for (var key in value) {
         var t = models.Track.fromURI(value[key].track, function(v) {
 
-            var html = "<div class=\"play\"><a href=\"#\"onclick=\"javascript:playTrack('"+value[key].track+"');\"><img src=\"img/play.png\" style=\"vertical-align: middle; padding: 3px;\"/> " + v.name + "</a></div>";
-            $('#' + key).find('.info').html(html);
-        });
-    }
-}
+            var play = "<div class=\"play\"><a href=\"#\"onclick=\"javascript:playTrack('"+value[key].track+"');\"><img src=\"img/play.png\" style=\"vertical-align: middle; padding: 3px;\"/> " + v.name + "</a></div>";
 
-function onTrackChangedHandler(track) {
-	console.log("OMG THIS IS NOT IMPLEMENTED! WHAT ARGUMENTS SHULD I TKE? Look in users.js");
+            $('#' + key).find('.info').html(play);
+        });
+        
+        var stalk = "<button onclick=\"javascript:startStalking('"+value[key].spotifyID+"');\">test</button>";
+        
+//console.log(stalk);
+        $('#stalk_' + key).html(stalk);
+        
+    }
 }
 
 function willLeaveRoom(session) {
@@ -135,5 +138,9 @@ function SessionEventListener() {
 
 	this.willEndSession = function (session) {
 		willLeaveRoom(session);
+	}
+
+	this.newConnectionEstablished = function (session) {
+		updateMyTrack();
 	}
 }
