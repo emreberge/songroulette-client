@@ -8,7 +8,6 @@
 <body>
 <!-- GUI Elements -->
 <div id="messagesDiv"></div>
-<input type="text" id="nameInput">
 <input type="text" id="messageInput">
 
 <script type="text/javascript">
@@ -22,13 +21,13 @@
   //   ...
   // where [ID] is a unique id assigned to each chat message by push().
 
-  $(document).ready(function () {
+  var startChat = function (roomName, displayName) {
 
     // Get a reference to the root of the chat data.
-    var chatMessagesPath = new Firebase('http://gamma.firebase.com/roulette');
-
+    var chatMessagesPath = new Firebase('http://gamma.firebase.com/songroulette');
+    var chatRoom = chatMessagesPath.child(roomName)
     // We use on('child_added') to be notified when new children objects are added to the chat.
-    chatMessagesPath.on('child_added', function(childSnapshot) {
+    chatRoom.on('child_added', function(childSnapshot) {
       // childSnapshot is the added object.  We'll extract the value and use it to append to
       // our messagesDiv.
       var message = childSnapshot.val();
@@ -41,14 +40,16 @@
     $("#messageInput").keypress(function (e) {
       if (e.keyCode == 13) {
         // Push a new object onto chatMessagesPath with the name/text that the user entered.
-        chatMessagesPath.push({
-          name:$("#nameInput").val(),
+        chatRoom.push({
+          name:displayName,
           text:$("#messageInput").val()
         });
         $("#messageInput").val("");
       }
     });
-  });
+  }
+    
+  $(document).ready(startChat('chat-room', 'Emre'));
 </script>
 </body>
 </html>
