@@ -41,15 +41,18 @@ function updatePageWithTrackDetails() {
     }
 }
 
+var currentArtistURI;
+
 function joinRoomForArtistURI(artistURI){
-	disconnectCurrentSession();
+	currentArtistURI = artistURI;
 	debug("joining new room");
 	var sessionResolver = new AsyncSessionResolver(sessionResolverHandler);
 	sessionResolver.sessionIdAndTokenWithArtistURI(artistURI);
-	//var token = sessionResolver.tokenWithSessionId(sessionId);
-	//connectWithSession(sessionId);
 }
 
-function sessionResolverHandler(sessionId, token){
-	connectWithSession(sessionId);
+function sessionResolverHandler(sessionId, token, artistURI){
+	if (currentArtistURI === artistURI) {
+		disconnectCurrentSession();
+		connectWithSession(sessionId);
+	}
 }

@@ -5,9 +5,11 @@ function AsyncSessionResolver(callback) {
 	
 	var sessionId = "";
 	var token = "";
+	var artistURI = "";
 
-	this.sessionIdAndTokenWithArtistURI = function(artistURI) {
-		this.sessionIdWithArtistURI(artistURI);
+	this.sessionIdAndTokenWithArtistURI = function(_artistURI) {
+			artistURI = _artistURI;
+			this.sessionIdWithArtistURI(artistURI);
 	}
 
 	this.sessionIdWithArtistURI = function (artistURI) {
@@ -28,7 +30,8 @@ function AsyncSessionResolver(callback) {
 
 	this.tokenCallback = function (responseText, self) {
 		token = responseText;
-		self.callback(sessionId, token);
+		fetching = false;
+		self.callback(sessionId, token, artistURI);
 	}
 
 	this.errorCallback = function (statusText) {
