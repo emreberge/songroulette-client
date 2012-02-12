@@ -55,11 +55,11 @@ function sessionResolverHandler(sessionID, token, artistURI){
 }
 
 function doJoinRoom(sessionID, token) {
-	leaveCurrentRoom();
+	leaveCurrentRoom(sessionID);
 	joinANewRoom(sessionID, token);
 }
 
-function leaveCurrentRoom() {
+function leaveCurrentRoom(sessionID) {
 	disconnectCurrentSession();
 }
 
@@ -73,6 +73,7 @@ function didJoinANewRoom(session) {
 }
 
 function willLeaveRoom(session) {
+	stopChat(session.sessionId);
 	endTrackingTracks(session.sessionId, session.connection.connectionId);
 }
 
@@ -90,8 +91,7 @@ function SessionEventListener() {
 	this.didStartSession = function (session) {
 		didJoinANewRoom(session);
 	}
-
 	this.willEndSession = function (session) {
-		willLeaveRoom(session);
+		willLeaveRoom(session);    
 	}
 }
