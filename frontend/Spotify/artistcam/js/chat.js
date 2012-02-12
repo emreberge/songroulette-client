@@ -1,7 +1,7 @@
 var base = new Firebase('http://gamma.firebase.com/songroulette');
 
 function getChatForRoom(roomName) {
-    return  base.child(roomName).child('Chat') 
+    return  base.child('Chat').child(roomName)
 }
 
 function childAddedCallBack(childSnapshot) {
