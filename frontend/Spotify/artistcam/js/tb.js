@@ -29,7 +29,9 @@ function connectWithCurrentSessionId() {
 	session = TB.initSession(currentSessionId);
 	session.addEventListener('sessionConnected', sessionConnectedHandler);
 	session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
-	session.addEventListener('streamCreated', streamCreatedHandler);      
+	session.addEventListener('streamCreated', streamCreatedHandler);
+	session.addEventListener('connectionCreated', connectionCreatedHandler);
+	session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
 	session.connect(apiKey, token);
 }
 
@@ -107,4 +109,12 @@ function subscribeToStreams(streams) {
     // Subscribe to the stream
     session.subscribe(streams[i], cam.id);
   }
+}
+
+function connectionCreatedHandler(event) {
+	// Create extra divs for styling.
+}
+
+function connectionDestroyedHandler(event) {
+	// Remove extra divs that was created in connectionCreatedHandler.
 }
