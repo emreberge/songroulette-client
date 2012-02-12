@@ -61,9 +61,19 @@ function sessionConnectedHandler(event) {
 }
 
 function insertReplaceElementInContent() {
-	var replaceElementDiv = document.createElement('div');
-	replaceElementDiv.setAttribute('id',replaceElementId);
-	document.getElementById('content').appendChild(replaceElementDiv);
+	var boxDiv = document.createElement('div');
+	boxDiv.setAttribute('id', 'you');
+	boxDiv.setAttribute('class', 'box');
+	
+	var tokboxDiv = document.createElement('div');
+	tokboxDiv.setAttribute('id',replaceElementId);
+	
+	var infoDiv = document.createElement('div');
+	infoDiv.setAttribute('class', 'info');
+	
+	boxDiv.appendChild(tokboxDiv);
+	boxDiv.appendChild(infoDiv);
+	document.getElementById('content').appendChild(boxDiv);
 }
  
 function streamCreatedHandler(event) {
@@ -89,6 +99,10 @@ function subscribeToStreams(streams) {
     var cam = document.createElement('div');
     cam.setAttribute('id', 'stream' + id);
     document.getElementById(id).appendChild(cam);
+
+    var info = document.createElement('div');
+    info.setAttribute('class', 'info');
+    document.getElementById(id).appendChild(info);
                        
     // Subscribe to the stream
     session.subscribe(streams[i], cam.id);
