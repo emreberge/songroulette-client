@@ -174,7 +174,7 @@ function subscribeToStreams(streams) {
 }
 
 function connectionCreatedHandler(event) {
-	sessionEventListener.newConnectionEstablished();
+  sessionEventListener.newConnectionEstablished();
 }
 
 function connectionDestroyedHandler(event) {

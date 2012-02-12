@@ -71,6 +71,15 @@ div.box
 	margin: 20px;
 }
 
+.unstalk {
+	background-image: url('../img/remove.png');
+	background-repeat: no-repeat;
+	width: 29px;
+	height: 29px;
+	position:absolute;
+	margin: 20px;
+}
+
 a:hover {
 	text-decoration: none;
 }

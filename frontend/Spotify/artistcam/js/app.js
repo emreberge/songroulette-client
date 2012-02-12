@@ -95,8 +95,6 @@ function didJoinANewRoom(session) {
 }
 
 function onRoomChange (value) {
-    console.log(value);
-
 	for (var key in value) {
         var t = models.Track.fromURI(value[key].track, function(v) {
 
@@ -105,11 +103,9 @@ function onRoomChange (value) {
             $('#' + key).find('.info').html(play);
         });
         
-        var stalk = "<button onclick=\"javascript:startStalking('"+value[key].spotifyID+"');\">test</button>";
+        var stalk = "<div style=\"height:100%; width:100%\" onclick=\"javascript:stalk('"+value[key].spotifyID+"', '"+key+"');\"></div>";
         
-//console.log(stalk);
         $('#stalk_' + key).html(stalk);
-        
     }
 }
 
@@ -140,7 +136,7 @@ function SessionEventListener() {
 		willLeaveRoom(session);
 	}
 
-	this.newConnectionEstablished = function (session) {
+	this.newConnectionEstablished = function () {
 		updateMyTrack();
 	}
 }

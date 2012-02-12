@@ -26,3 +26,25 @@ function stopStalking(){
     stopTrackingUser();
     
 }
+
+
+var currentFollowState = null;
+
+
+function stalk(spotifyUserId, key)
+{
+	console.log(key);
+	if (key === currentFollowState) {
+		stopStalking();
+		currentFollowState = null;
+		$('#stalk_' + key).attr('class', 'stalk');
+	}
+	else {
+		$('#stalk_' + currentFollowState).attr('class', 'stalk');
+		startStalking(spotifyUserId);
+		currentFollowState = key;
+		$('#stalk_' + key).attr('class', 'unstalk');
+	}
+
+	console.log(currentFollowState);
+}
