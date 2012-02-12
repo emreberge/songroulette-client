@@ -86,7 +86,7 @@ function streamCreatedHandler(event) {
 function subscribeToStreams(streams) {
   for (var i = 0; i < streams.length; i++) {
     // Make sure we don't subscribe to ourself
-    if (streams[i].connection.connectionId == session.connection.connectionId) {
+    if (streams[i].connection.connectionId === session.connection.connectionId) {
       return;
     }
 
@@ -95,12 +95,12 @@ function subscribeToStreams(streams) {
     // Create the div to put the subscriber element in to
     var box = document.createElement('div');
     box.setAttribute('class', 'box');
-    box.setAttribute('id', id);
+    box.setAttribute('id', streams[i].connection.connectionId);
     document.getElementById('content').appendChild(box);
 
     var cam = document.createElement('div');
     cam.setAttribute('id', 'stream' + id);
-    document.getElementById(id).appendChild(cam);
+    document.getElementById(streams[i].connection.connectionId).appendChild(cam);
                        
     // Subscribe to the stream
     session.subscribe(streams[i], cam.id);
@@ -108,9 +108,11 @@ function subscribeToStreams(streams) {
 }
 
 function connectionCreatedHandler(event) {
-	// Create extra divs for styling.
 }
 
 function connectionDestroyedHandler(event) {
-	// Remove extra divs that was created in connectionCreatedHandler.
+
+  var c = document.getElementById('content');
+  var divId = document.getElementById(event.connections[0].connectionId);
+  c.removeChild(divId);
 }
