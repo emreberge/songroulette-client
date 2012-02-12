@@ -45,19 +45,21 @@ function disconnectCurrentSession() {
 
 function sessionDisconnectedHandler (event) {
 	isDisconnecting = false;
+	removeEverythingInContentDivAfterDisconnect();
+	if (isWaitingToConnect) {
+		debug("was waiting to connect. Connecting after a disconnect with sessionId: " + currentSessionId);
+		connectWithSession(currentSessionId);
+	}
+}
 
-  var c = document.getElementById('content');
+function removeEverythingInContentDivAfterDisconnect() {
+	var c = document.getElementById('content');
 
   if (c.hasChildNodes()) {
     while (c.childNodes.length >= 1) {
      c.removeChild(c.firstChild);
     }
   }
-
-	if (isWaitingToConnect) {
-		debug("was waiting to connect. Connecting after a disconnect with sessionId: " + currentSessionId);
-		connectWithSession(currentSessionId);
-	}
 }
 
 var publisher;
@@ -117,6 +119,7 @@ function subscribeToStreams(streams) {
 }
 
 function connectionCreatedHandler(event) {
+
 }
 
 function connectionDestroyedHandler(event) {
