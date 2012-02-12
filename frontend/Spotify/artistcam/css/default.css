@@ -54,7 +54,6 @@ div.box
 
 }
 
-button {
-	background: none;
-	border: none;
+a:hover {
+	text-decoration: none;
 }

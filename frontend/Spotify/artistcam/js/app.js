@@ -100,7 +100,7 @@ function onRoomChange (value) {
 	for (var key in value) {
         var t = models.Track.fromURI(value[key].track, function(v) {
 
-            var html = "<button onclick=\"javascript:playTrack('"+value[key].track+"');\">" + v.name + "</button>";
+            var html = "<div class=\"play\"><a href=\"#\"onclick=\"javascript:playTrack('"+value[key].track+"');\"><img src=\"img/play.png\" style=\"vertical-align: middle; padding: 3px;\"/> " + v.name + "</a></div>";
             $('#' + key).find('.info').html(html);
         });
     }
