@@ -49,6 +49,10 @@ function disconnectCurrentSession() {
 function sessionDisconnectedHandler (event) {
 	isDisconnecting = false;
 	removeEverythingInContentDivAfterDisconnect();
+	var _session = event.target;
+	console.log("ended session");
+	console.log(_session);
+	sessionEventListener.didEndSession(_session);
 	if (isWaitingToConnect) {
 		debug("was waiting to connect. Connecting after a disconnect with sessionID: " + currentSessionID);
 		connectWithSessionAndToken(currentSessionID, currentToken);
@@ -76,6 +80,7 @@ function sessionConnectedHandler(event) {
   // Subscribe to streams that were in the session when we connected
   subscribeToStreams(event.streams);
 	var _session = event.target;
+	console.log("Started session");
 	console.log(_session);
 	if (sessionEventListener === null)
 		console.log("Warning: sessionEventListener is null. Use setSessionEventListener and listen!");
