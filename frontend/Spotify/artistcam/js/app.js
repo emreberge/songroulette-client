@@ -20,7 +20,7 @@ function init() {
 
 function updatePageWithTrackDetails() {
 
-    var header = document.getElementById("track");
+    var header = document.getElementById('artist');
 
     // This will be null if nothing is playing.
     var playerTrackInfo = player.track;
@@ -30,6 +30,7 @@ function updatePageWithTrackDetails() {
     } else {
         var track = playerTrackInfo.data;
 				var artist = track.album.artist;
+				debug("currentArtistURI: " + currentArtistURI + ", artist.uri: " + artist.uri);
 				if (currentArtistURI != artist.uri){
 					joinRoomForArtistURI(artist.uri);
 				}
@@ -40,5 +41,10 @@ function updatePageWithTrackDetails() {
 
 function joinRoomForArtistURI(artistURI){
 	disconnectCurrentSession();
+	debug("joining new room");
 	connect();
+}
+
+function debug (str) {
+	window.opentokdebug.debug("[ArtistCam]: " + str);
 }

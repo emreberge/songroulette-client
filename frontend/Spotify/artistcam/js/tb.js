@@ -1,36 +1,69 @@
 
 var apiKey = '11827172';
-var sessionId = '14685d1ac5907f4a2814fed28294d3f797f34955';
+var currentSessionId = '14685d1ac5907f4a2814fed28294d3f797f34955';
 var token = 'devtoken';           
 var session = null;
-TB.setLogLevel(TB.DEBUG);     
+var replaceElementId = 'tokbox';
+TB.setLogLevel(TB.DEBUG);
 
-
+var isDisconnecting = false;
+var isWaitingToConnect = false;
 
 function connect() {
-	connectWithSession(sessionId);
+	connectWithSession(currentSessionId);
 }
 
 function connectWithSession(sessionId) {
-	session = TB.initSession(sessionId);      
+	currentSessionId = sessionId
+  if (!isDisconnecting) {
+		connectWithCurrentSessionId();
+	} else {
+	  debug("waiting to connect with sessionId: " + currentSessionId);
+		isWaitingToConnect = true;
+	}
+}
+
+function connectWithCurrentSessionId() {
+  debug("connecting with sessionId: " + currentSessionId);
+  isWaitingToConnect = false;
+	session = TB.initSession(currentSessionId);
 	session.addEventListener('sessionConnected', sessionConnectedHandler);
+	session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
 	session.addEventListener('streamCreated', streamCreatedHandler);      
 	session.connect(apiKey, token);
 }
 
 function disconnectCurrentSession() {
-  if (session != null)
+  if (session != null) {
+	  debug("disconnecting..");
+		isDisconnecting = true;
 		session.disconnect();
+	}
+}
+
+function sessionDisconnectedHandler (event) {
+	isDisconnecting = false;
+	if (isWaitingToConnect) {
+		debug("was waiting to connect. Connecting after a disconnect with sessionId: " + currentSessionId);
+		connectWithSession(currentSessionId);
+	}
 }
 
 var publisher;
 
 function sessionConnectedHandler(event) {
-  publisher = session.publish('tokbox');
-
+  insertReplaceElementInContent();
+  publisher = session.publish(replaceElementId);
   publisher.publishAudio(false);
+
   // Subscribe to streams that were in the session when we connected
   subscribeToStreams(event.streams);
+}
+
+function insertReplaceElementInContent() {
+	var replaceElementDiv = document.createElement('div');
+	replaceElementDiv.setAttribute('id',replaceElementId);
+	document.getElementById('content').appendChild(replaceElementDiv);
 }
  
 function streamCreatedHandler(event) {
