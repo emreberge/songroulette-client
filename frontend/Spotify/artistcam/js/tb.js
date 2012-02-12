@@ -12,7 +12,7 @@ session.connect(apiKey, token);
 var publisher;
 
 function sessionConnectedHandler(event) {
-  publisher = session.publish('myPublisherDiv');
+  publisher = session.publish('tokbox');
    
   // Subscribe to streams that were in the session when we connected
   subscribeToStreams(event.streams);
@@ -31,11 +31,12 @@ function subscribeToStreams(streams) {
     }
 
     // Create the div to put the subscriber element in to
-    var div = document.createElement('div');
-    div.setAttribute('id', 'stream' + streams[i].streamId);
-    document.body.appendChild(div);
+    var cam = document.createElement('div');
+    cam.setAttribute('id', 'stream' + streams[i].streamId);
+    cam.className = 'cam';
+    document.getElementById('content').appendChild(cam);
                        
     // Subscribe to the stream
-    session.subscribe(streams[i], div.id);
+    session.subscribe(streams[i], cam.id);
   }
 }

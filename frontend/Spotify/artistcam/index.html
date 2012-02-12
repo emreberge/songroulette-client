@@ -2,13 +2,16 @@
 <head>
   <meta charset="utf-8">
   <link rel="stylesheet" href="sp://import/css/eve.css">
+  <link rel="stylesheet" href="sp://artistcam/css/default.css">
   <script src="sp://artistcam/js/tb-0.91.js"></script>
-  <script src="sp://artistcam/js/tb.js"></script>
 </head>
  
 <body onload="sp = getSpotifyApi(1); app = sp.require('js/app'); app.init();">
-  <h1 id="header">Artist Cam</h1>
-  <h2 id="track"></h2>
-  <div id="myPublisherDiv"></div>
+  <div id="header"></div>
+  <div id="content">
+    <div id="tokbox"></div>
+  </div>
 </body>
 </html>
+
+<script src="sp://artistcam/js/tb.js"></script>
