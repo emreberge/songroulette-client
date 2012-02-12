@@ -106,13 +106,13 @@ function insertReplaceElementInContent() {
 	var boxDiv = document.createElement('div');
 	boxDiv.setAttribute('id', 'you');
 	boxDiv.setAttribute('class', 'box');
-	
+
 	var tokboxDiv = document.createElement('div');
 	tokboxDiv.setAttribute('id',replaceElementId);
-	
+
 	var infoDiv = document.createElement('div');
 	infoDiv.setAttribute('class', 'info');
-	
+
 	boxDiv.appendChild(tokboxDiv);
 	boxDiv.appendChild(infoDiv);
 	document.getElementById('content').appendChild(boxDiv);
@@ -131,17 +131,21 @@ function subscribeToStreams(streams) {
     }
 
     var id = streams[i].streamId;
-
+		var connectionId = streams[i].connection.connectionId;
     // Create the div to put the subscriber element in to
     var box = document.createElement('div');
+    box.setAttribute('id', connectionId);
     box.setAttribute('class', 'box');
-    box.setAttribute('id', streams[i].connection.connectionId);
     document.getElementById('content').appendChild(box);
 
     var cam = document.createElement('div');
     cam.setAttribute('id', 'stream' + id);
-    document.getElementById(streams[i].connection.connectionId).appendChild(cam);
-                       
+    document.getElementById(connectionId).appendChild(cam);
+
+		var infoDiv = document.createElement('div');
+		infoDiv.setAttribute('class', 'info');
+		box.appendChild(infoDiv);
+
     // Subscribe to the stream
     session.subscribe(streams[i], cam.id);
   }
