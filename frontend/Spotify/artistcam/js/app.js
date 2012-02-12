@@ -100,9 +100,16 @@ function onRoomChange (value) {
 	for (var key in value) {
         var t = models.Track.fromURI(value[key].track, function(v) {
 
-            var html = "<div class=\"play\"><a href=\"#\"onclick=\"javascript:playTrack('"+value[key].track+"');\"><img src=\"img/play.png\" style=\"vertical-align: middle; padding: 3px;\"/> " + v.name + "</a></div>";
-            $('#' + key).find('.info').html(html);
+            var play = "<div class=\"play\"><a href=\"#\"onclick=\"javascript:playTrack('"+value[key].track+"');\"><img src=\"img/play.png\" style=\"vertical-align: middle; padding: 3px;\"/> " + v.name + "</a></div>";
+
+            $('#' + key).find('.info').html(play);
         });
+        
+        var stalk = "<button onclick=\"javascript:startStalking('"+value[key].spotifyID+"');\">test</button>";
+        
+//console.log(stalk);
+        $('#stalk_' + key).html(stalk);
+        
     }
 }
 
