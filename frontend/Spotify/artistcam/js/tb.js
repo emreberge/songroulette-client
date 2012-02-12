@@ -172,6 +172,9 @@ function connectionDestroyedHandler(event) {
 
 function removeDivForConnection(connection) {
   var c = document.getElementById('content');
-  var divId = document.getElementById(connection.connectionId);
-  c.removeChild(divId);
+	var connectionId = connection.connectionId;
+	if (session.connection.connectionId != connectionId){
+		var divId = document.getElementById(connection.connectionId);
+		c.removeChild(divId);
+	}
 }
