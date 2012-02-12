@@ -135,12 +135,21 @@ function subscribeToStreams(streams) {
 }
 
 function connectionCreatedHandler(event) {
-
+	var connections = event.connections;
+	for (var connection in connections)
+		sessionEventListener.didEstablishNewConnection(connection);
 }
 
 function connectionDestroyedHandler(event) {
-  console.log(event)
+  var connections = event.connections;
+	for (var connection in connections){
+		sessionEventListener.didDestroyConnection(connection);
+		removeDivForConnection(connection);
+	}
+}
+
+function removeDivForConnection(connection) {
   var c = document.getElementById('content');
-  var divId = document.getElementById(event.connections[0].connectionId);
+  var divId = document.getElementById(connection.connectionId);
   c.removeChild(divId);
 }
