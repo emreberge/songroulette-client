@@ -1,5 +1,11 @@
 function ServiceBase() {
 	
+	this.baseURL = getServiceHost();
+
+	this.getServiceURL = function (service) {
+		return this.baseURL.concat(service);
+	}
+
 	this.fetchURL = function (url, caller, callback) {
 		var self = this;
 		var http = this.getHTTPObject();
