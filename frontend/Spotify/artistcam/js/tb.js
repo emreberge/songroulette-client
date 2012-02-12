@@ -42,6 +42,7 @@ function disconnectCurrentSession() {
   if (session != null) {
 	  debug("disconnecting..");
 		isDisconnecting = true;
+		sessionEventListener.willEndSession(session);
 		session.disconnect();
 	}
 }
@@ -49,10 +50,6 @@ function disconnectCurrentSession() {
 function sessionDisconnectedHandler (event) {
 	isDisconnecting = false;
 	removeEverythingInContentDivAfterDisconnect();
-	var _session = event.target;
-	console.log("ended session");
-	console.log(_session);
-	sessionEventListener.didEndSession(_session);
 	if (isWaitingToConnect) {
 		debug("was waiting to connect. Connecting after a disconnect with sessionID: " + currentSessionID);
 		connectWithSessionAndToken(currentSessionID, currentToken);

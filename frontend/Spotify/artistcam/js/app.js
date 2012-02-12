@@ -72,9 +72,9 @@ function didJoinANewRoom(session) {
 	startTrackingTracks(session.sessionId, session.connection.connectionId);
 }
 
-function didLeaveRoom(session) {
-    stopChat(session.sessionId);
-    endTrackingTracks(session.sessionId, session.connection.connectionId);
+function willLeaveRoom(session) {
+	stopChat(session.sessionId);
+	endTrackingTracks(session.sessionId, session.connection.connectionId);
 }
 
 function TrackServiceHandler() {
@@ -91,8 +91,7 @@ function SessionEventListener() {
 	this.didStartSession = function (session) {
 		didJoinANewRoom(session);
 	}
-    
-	this.didEndSession = function (session) {
-		didLeaveRoom(session);
+	this.willEndSession = function (session) {
+		willLeaveRoom(session);    
 	}
 }
