@@ -10,7 +10,9 @@ function getUser(userID) {
 function startTrackingTrackOfUser(userID, trackChangedTo) {
     user = getUser(userID);
     userCallBackFunctionMap[userID] = function(childSnapshot){
-        trackChangedTo(childSnapshot.val().track);
+				var value = childSnapshot.val();
+        if (value != null)
+					trackChangedTo(value.track);
     };
     
     user.on('value', userCallBackFunctionMap[userID]);

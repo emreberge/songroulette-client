@@ -64,6 +64,7 @@ function leaveCurrentRoom(sessionID) {
 
 function joinANewRoom(sessionID, token) {
 	connectWithSessionAndToken(sessionID, token);
+	setMySong(sessionID, getTrack().uri);
 }
 
 function didJoinANewRoom(session) {
@@ -72,7 +73,7 @@ function didJoinANewRoom(session) {
 	startChat(currentArtistURI,'Haxor');
 }
 
-function onTrackChangedHandler() {
+function onTrackChangedHandler(track) {
 	console.log("OMG THIS IS NOT IMPLEMENTED! WHAT ARGUMENTS SHULD I TKE? Look in users.js");
 }
 
