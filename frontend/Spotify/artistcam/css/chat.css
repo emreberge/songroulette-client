@@ -5,6 +5,7 @@
 }
 
 #messagesDiv {
+    overflow: auto;
     height: 180px;
     padding: 8px;
     background-color: #474747;
