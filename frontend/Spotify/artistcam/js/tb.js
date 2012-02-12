@@ -6,6 +6,7 @@ var session = null;
 var replaceElementId = 'tokbox';
 TB.setLogLevel(TB.DEBUG);
 
+var isConnecting = false;
 var isDisconnecting = false;
 var isWaitingToConnect = false;
 var isFullyConnected = false;
@@ -23,7 +24,7 @@ function getSession () {
 function connectWithSessionAndToken(sessionID, token) {
 	currentSessionID = sessionID
 	currentToken = token;
-  if (!isDisconnecting) {
+  if (!isDisconnecting && !isConnecting) {
 		connectWithCurrentSessionID();
 	} else {
 	  debug("waiting to connect with sessionID: " + currentSessionID);
@@ -33,6 +34,7 @@ function connectWithSessionAndToken(sessionID, token) {
 
 function connectWithCurrentSessionID() {
   debug("connecting with sessionID: " + currentSessionID);
+	isConnecting = true;
   isWaitingToConnect = false;
 	session = TB.initSession(currentSessionID);
 	session.addEventListener('sessionConnected', sessionConnectedHandler);
@@ -76,21 +78,28 @@ function removeEverythingInContentDivAfterDisconnect() {
 var publisher;
 
 function sessionConnectedHandler(event) {
-	isFullyConnected = true;
-	console.log(event);
-  insertReplaceElementInContent();
-  publisher = session.publish(replaceElementId);
-  publisher.publishAudio(false);
+	if(session.sessionId != currentSessionID) {
+		isConnecting = false;
+		disconnectCurrentSession();
+		connectWithSessionAndToken(currentSessionID, currentToken);
+	} else {
+		isConnecting = false;
+		isFullyConnected = true;
+		console.log(event);
+		insertReplaceElementInContent();
+		publisher = session.publish(replaceElementId);
+		publisher.publishAudio(false);
 
-  // Subscribe to streams that were in the session when we connected
-  subscribeToStreams(event.streams);
-	var _session = event.target;
-	console.log("Started session");
-	console.log(_session);
-	if (sessionEventListener === null)
-		console.log("Warning: sessionEventListener is null. Use setSessionEventListener and listen!");
-	else
-		sessionEventListener.didStartSession(_session);
+		// Subscribe to streams that were in the session when we connected
+		subscribeToStreams(event.streams);
+		var _session = event.target;
+		console.log("Started session");
+		console.log(_session);
+		if (sessionEventListener === null)
+			console.log("Warning: sessionEventListener is null. Use setSessionEventListener and listen!");
+		else
+			sessionEventListener.didStartSession(_session);
+	}
 }
 
 function insertReplaceElementInContent() {

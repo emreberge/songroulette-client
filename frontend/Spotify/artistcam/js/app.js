@@ -33,7 +33,7 @@ function updatePageWithTrackDetails() {
 		}
 		header.innerHTML = "People listening to " + artist.name;
 	} else {
-			header.innerText = "Start playing to see other people liste	ning to the same artist as you!";
+			header.innerText = "Start playing to see other people listening to the same artist as you!";
 	}
 }
 
@@ -64,13 +64,20 @@ function sessionResolverHandler(sessionID, token, artistURI){
 	}
 }
 
+var isFirstTime = true;
+
 function doJoinRoom(sessionID, token) {
-	leaveCurrentRoom(sessionID);
+	if(!isFirstTime)
+		leaveCurrentRoom();
+	else
+		isFirstTime = false;
 	joinANewRoom(sessionID, token);
 }
-
-function leaveCurrentRoom(sessionID) {
+ 
+function leaveCurrentRoom() {
 	disconnectCurrentSession();
+	stopChat(currentArtistURI);
+	stopTrackingRoom();
 }
 
 function joinANewRoom(sessionID, token) {
