@@ -12,3 +12,7 @@ function startTrackingTrackOfUser(userID, trackChanged) {
 function stopTrackingUser(userID) {
 
 }
+
+function setMySong(myUserID, songID) {
+    
+}
