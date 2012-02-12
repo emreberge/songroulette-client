@@ -1,4 +1,5 @@
 sp = getSpotifyApi(1);
+var username = sp.core.user.canonicalUsername;
 var models = sp.require('sp://import/scripts/api/models');
 var player = models.player;
 var currentArtistURI;
@@ -87,7 +88,7 @@ function joinANewRoom(sessionID, token) {
 function didJoinANewRoom(session) {
 	console.log("didJoinANewRoom");
 	console.log(session);
-	startChat(currentArtistURI,'Haxor');
+	startChat(currentArtistURI, username);
 	startTrackingRoom(session.connection.connectionId, currentArtistURI, onRoomChange, getTrack().uri);
 	updateMyTrack();
 }

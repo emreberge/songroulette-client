@@ -16,5 +16,9 @@
         "http://*.firebase.com/",
         "http://*.googleapis.com/",
         "http://robohash.org/"
-    ]
+    ],
+    "ApiPermissions" : {
+        "installer" : ["private"],
+        "core" : ["private"]
+    }
 }

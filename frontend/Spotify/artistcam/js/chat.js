@@ -8,7 +8,7 @@ function childAddedCallBack(childSnapshot) {
     // childSnapshot is the added object.  We'll extract the value and use it to append to
     // our messagesDiv.
     var message = childSnapshot.val();
-    $("#messagesDiv").append("<div id=\"chatLine\"><img src=\"http://robohash.org/" + message.name + ".png?size=25x25\" height=\"25\" width=\"25\"/> " + message.text + "<br /></ div>");
+    $("#messagesDiv").append("<div id=\"chatLine\"><img src=\"http://robohash.org/" + message.name + ".png?size=25x25\" height=\"25\" width=\"25\"/>" + message.name + ": " + message.text + "<br /></ div>");
     $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
 }
 
