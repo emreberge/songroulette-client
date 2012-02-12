@@ -14,7 +14,7 @@ function AsyncTrackService(trackServiceHandler) {
 	
 	this.putTrackForUserIDWithTrack = function (userID, track) {
 		var url = this.serviceBase.getServiceURL("/" + userID + "/track/" + track);
-		this.serviceBase.fetchURL(url, this, putTrackCallback);
+		this.serviceBase.fetchURL(url, this, this.putTrackCallback);
 	}
 	
 	this.putTrackCallback = function(responseText, self) {
