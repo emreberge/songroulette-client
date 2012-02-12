@@ -42,7 +42,7 @@ function updateMyTrack() {
 	if(session){
 		var connection = session.connection;
 		if (connection) {
-			setMySong(connection.connectionId, getTrack().uri);
+			songChanged(getTrack().uri);
 		}
 	}
 }
@@ -75,13 +75,18 @@ function leaveCurrentRoom(sessionID) {
 
 function joinANewRoom(sessionID, token) {
 	connectWithSessionAndToken(sessionID, token);
-	updateMyTrack();
 }
 
 function didJoinANewRoom(session) {
 	console.log("didJoinANewRoom");
 	console.log(session);
 	startChat(currentArtistURI,'Haxor');
+	startTrackingRoom(session.connection.connectionId, currentArtistURI, onRoomChange, getTrack().uri);
+	updateMyTrack();
+}
+
+function onRoomChange (value) {
+	console.log(value);
 }
 
 function onTrackChangedHandler(track) {
@@ -92,6 +97,7 @@ function willLeaveRoom(session) {
   console.log("willLeaveRoom");
 	console.log(session);
 	stopChat(currentArtistURI);
+	stopTrackingRoom();
 }
 
 
