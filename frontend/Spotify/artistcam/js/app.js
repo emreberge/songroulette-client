@@ -70,14 +70,23 @@ function didJoinANewRoom(session) {
 	console.log("didJoinANewRoom");
 	console.log(session);
 	startChat(session.sessionId,'Haxor');
-	startTrackingTracks(session.sessionId, session.connection.connectionId);
+//	startTrackingTrackOfUser(session.connection.connectionId, trackChangedHandler);
+}
+
+function trackChangedHandler() {
+	console.log("OMG THIS IS NOT IMPLEMENTED! WHAT ARGUMENTS SHULD I TKE? Look in users.js");
 }
 
 function willLeaveRoom(session) {
   console.log("willLeaveRoom");
 	console.log(session);
 	stopChat(session.sessionId);
-	endTrackingTracks(session.sessionId, session.connection.connectionId);
+	stopTrackingUsersInSession(session);
+}
+
+function stopTrackingUsersInSession(session) {
+	for (var subscriber in session.subscribers)
+		stopTrackingUser(session.subscribers[subscriber].properties.connectionId);
 }
 
 function TrackServiceHandler() {
