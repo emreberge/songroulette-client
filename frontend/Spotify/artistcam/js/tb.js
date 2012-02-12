@@ -12,6 +12,8 @@ var isFullyConnected = false;
 
 var sessionEventListener = null;
 
+var currentConnections = [];
+
 function setSessionEventListener(eventListener) {
 	sessionEventListener = eventListener;
 }
@@ -34,6 +36,7 @@ function connectWithCurrentSessionID() {
 	session.addEventListener('sessionConnected', sessionConnectedHandler);
 	session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
 	session.addEventListener('streamCreated', streamCreatedHandler);
+	session.addEventListener('streamDestroyed', streamDestroyedHandler);
 	session.addEventListener('connectionCreated', connectionCreatedHandler);
 	session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
 	session.connect(apiKey, currentToken);
@@ -44,7 +47,8 @@ function disconnectCurrentSession() {
 	  debug("disconnecting..");
 		isDisconnecting = true;
 		if (isFullyConnected)
-			sessionEventListener.willEndSession(session);
+			sessionEventListener.willEndSession(session, currentConnections);
+		currentConnections = [];
 		session.disconnect();
 	}
 	isFullyConnected = false;
@@ -131,19 +135,58 @@ function subscribeToStreams(streams) {
                        
     // Subscribe to the stream
     session.subscribe(streams[i], cam.id);
+
+		// Established connection
+		var connection = streams[i].connection;
+		var idx = indexOfConnectionInCurrentConnections(connection);
+		if (idx === -1)
+			currentConnections.push(connection);
+		sessionEventListener.didEstablishNewConnection(connection);
   }
+}
+
+function streamDestroyedHandler(event) {
+	console.log("stream destroyed");
+	console.log(event);
+	var streams = event.streams;
+	console.log(streams);
+	for (var i = 0; i < streams.length; i++) {
+		var stream = streams[i];
+		sessionEventListener.didDestroyConnection(stream.connection);
+	}
 }
 
 function connectionCreatedHandler(event) {
 	var connections = event.connections;
-	for (var connection in connections)
-		sessionEventListener.didEstablishNewConnection(connection);
+	for (var i = 0; i < connections.length; i++){
+		var idx = indexOfConnectionInCurrentConnections(connection);
+		if (idx === -1)
+			currentConnections.push(connections[i]);
+//		sessionEventListener.didEstablishNewConnection(connection);
+	}
+}
+
+function indexOfConnectionInCurrentConnections(connection) {
+	var conId = connection.connectionId;
+	for (var j = 0; j < currentConnections.length; j++) {
+		var conId2 = currentConnections[j].connectionId;
+		if (conId === conId2) {
+			return j;
+		}
+	}
+	return -1;
 }
 
 function connectionDestroyedHandler(event) {
   var connections = event.connections;
-	for (var connection in connections){
-		sessionEventListener.didDestroyConnection(connection);
+	for (var i = 0; i < connections.length; i++){
+		var connection = connections[i];
+		var idx = indexOfConnectionInCurrentConnections(connection);
+		if (idx != -1)
+			currentConnections.splice(idx, 1);
+		else
+			console.log("WARN: connection was not in current connections");
+//		sessionEventListener.didDestroyConnection(connection);
 		removeDivForConnection(connection);
 	}
 }

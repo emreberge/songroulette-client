@@ -70,10 +70,9 @@ function didJoinANewRoom(session) {
 	console.log("didJoinANewRoom");
 	console.log(session);
 	startChat(currentArtistURI,'Haxor');
-//	startTrackingTrackOfUser(session.connection.connectionId, trackChangedHandler);
 }
 
-function trackChangedHandler() {
+function onTrackChangedHandler() {
 	console.log("OMG THIS IS NOT IMPLEMENTED! WHAT ARGUMENTS SHULD I TKE? Look in users.js");
 }
 
@@ -81,13 +80,8 @@ function willLeaveRoom(session) {
   console.log("willLeaveRoom");
 	console.log(session);
 	stopChat(currentArtistURI);
-	stopTrackingUsersInSession(session);
 }
 
-function stopTrackingUsersInSession(session) {
-	for (var subscriber in session.subscribers)
-		stopTrackingUser(session.subscribers[subscriber].properties.connectionId);
-}
 
 function TrackServiceHandler() {
 	this.didGetTrack = function (responseText) {
@@ -104,15 +98,18 @@ function SessionEventListener() {
 		didJoinANewRoom(session);
 	}
 
-	this.willEndSession = function (session) {
-		willLeaveRoom(session);    
+	this.willEndSession = function (session, connections) {
+		willLeaveRoom(session);
+		for (var i = 0; i < connections.length; i++)
+			stopTrackingUser(connections[i].connectionId);
 	}
 
 	this.didEstablishNewConnection = function (connection) {
-
+		console.log(connection);
+		startTrackingTrackOfUser(connection.connectionId, onTrackChangedHandler);
 	}
 
 	this.didDestroyConnection = function (connection) {
-
+		stopTrackingUser(connection.connectionId);
 	}
 }
