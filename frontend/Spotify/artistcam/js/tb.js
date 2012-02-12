@@ -27,7 +27,8 @@ var publisher;
 
 function sessionConnectedHandler(event) {
   publisher = session.publish('tokbox');
-   
+
+  publisher.publishAudio(false);
   // Subscribe to streams that were in the session when we connected
   subscribeToStreams(event.streams);
 }
@@ -44,11 +45,17 @@ function subscribeToStreams(streams) {
       return;
     }
 
+    var id = streams[i].streamId;
+
     // Create the div to put the subscriber element in to
+    var box = document.createElement('div');
+    box.setAttribute('class', 'box');
+    box.setAttribute('id', id);
+    document.getElementById('content').appendChild(box);
+
     var cam = document.createElement('div');
-    cam.setAttribute('id', 'stream' + streams[i].streamId);
-    cam.className = 'cam';
-    document.getElementById('content').appendChild(cam);
+    cam.setAttribute('id', 'stream' + id);
+    document.getElementById(id).appendChild(cam);
                        
     // Subscribe to the stream
     session.subscribe(streams[i], cam.id);
