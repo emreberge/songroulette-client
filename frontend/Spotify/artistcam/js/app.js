@@ -24,6 +24,7 @@ function updatePageWithTrackDetails() {
 	var isPlayingTrack = player.track != null;
 
 	if (isPlayingTrack) {
+		updateMyTrack();
 		var track = getTrack();
 		var artist = track.artists[0];
 		if (currentArtistURI != artist.uri){
@@ -33,6 +34,16 @@ function updatePageWithTrackDetails() {
 		header.innerHTML = "People listening to " + artist.name;
 	} else {
 			header.innerText = "Start playing to see other people liste	ning to the same artist as you!";
+	}
+}
+
+function updateMyTrack() {
+	var session = getSession();
+	if(session){
+		var connection = session.connection;
+		if (connection) {
+			setMySong(connection.connectionId, getTrack().uri);
+		}
 	}
 }
 
@@ -64,7 +75,7 @@ function leaveCurrentRoom(sessionID) {
 
 function joinANewRoom(sessionID, token) {
 	connectWithSessionAndToken(sessionID, token);
-	setMySong(sessionID, getTrack().uri);
+	updateMyTrack();
 }
 
 function didJoinANewRoom(session) {

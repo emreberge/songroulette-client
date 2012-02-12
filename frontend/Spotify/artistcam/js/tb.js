@@ -18,6 +18,10 @@ function setSessionEventListener(eventListener) {
 	sessionEventListener = eventListener;
 }
 
+function getSession () {
+	return session;
+}
+
 function connectWithSessionAndToken(sessionID, token) {
 	currentSessionID = sessionID
 	currentToken = token;
