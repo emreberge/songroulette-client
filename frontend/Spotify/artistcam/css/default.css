@@ -20,17 +20,22 @@ div#artist
 
 div#content
 {
+    overflow: hidden;
 }
 
-div#info
+div.info
 {
-	bottom: 0px;
+    position: absolute;
+    top: 200px;
+    z-index: 10px;
+    left: 0px;
 }
 
 div.video {
-    float: none;
     height: 200px;
     width: 264px;
+    display: block;
+    
 }
 
 div.box
@@ -43,4 +48,7 @@ div.box
     width: 264px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    overflow: hidden;
+    position: relative;
+
 }
