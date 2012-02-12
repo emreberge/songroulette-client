@@ -126,8 +126,3 @@ function connectionDestroyedHandler(event) {
   var divId = document.getElementById(event.connections[0].connectionId);
   c.removeChild(divId);
 }
-
-function getSessionsConnectionID() {
-	console.log("session: " + session);
-	return session.connection.connectionId;
-}
