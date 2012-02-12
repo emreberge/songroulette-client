@@ -29,6 +29,7 @@ div.info
     top: 200px;
     z-index: 10px;
     left: 0px;
+    padding: 10px;
 }
 
 div.video {
@@ -51,4 +52,9 @@ div.box
     overflow: hidden;
     position: relative;
 
+}
+
+button {
+	background: none;
+	border: none;
 }

@@ -4,7 +4,7 @@ var currentSessionID = '';
 var currentToken = '';
 var session = null;
 var replaceElementId = 'tokbox';
-TB.setLogLevel(TB.DEBUG);
+//TB.setLogLevel(TB.DEBUG);
 
 var isConnecting = false;
 var isDisconnecting = false;

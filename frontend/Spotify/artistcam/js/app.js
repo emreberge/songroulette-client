@@ -95,8 +95,13 @@ function didJoinANewRoom(session) {
 
 function onRoomChange (value) {
     console.log(value);
+
 	for (var key in value) {
-        $('#' + key).find('.info').html("<a href=\"" + value[key].track + "\" >Music</a>");
+        var t = models.Track.fromURI(value[key].track, function(v) {
+
+            var html = "<button onclick=\"javascript:playTrack('"+value[key].track+"');\">" + v.name + "</button>";
+            $('#' + key).find('.info').html(html);
+        });
     }
 }
 
