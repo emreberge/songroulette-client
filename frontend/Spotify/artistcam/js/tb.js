@@ -45,6 +45,15 @@ function disconnectCurrentSession() {
 
 function sessionDisconnectedHandler (event) {
 	isDisconnecting = false;
+
+  var c = document.getElementById('content');
+
+  if (c.hasChildNodes()) {
+    while (c.childNodes.length >= 1) {
+     c.removeChild(c.firstChild);
+    }
+  }
+
 	if (isWaitingToConnect) {
 		debug("was waiting to connect. Connecting after a disconnect with sessionId: " + currentSessionId);
 		connectWithSession(currentSessionId);
@@ -111,7 +120,7 @@ function connectionCreatedHandler(event) {
 }
 
 function connectionDestroyedHandler(event) {
-
+  console.log(event)
   var c = document.getElementById('content');
   var divId = document.getElementById(event.connections[0].connectionId);
   c.removeChild(divId);
