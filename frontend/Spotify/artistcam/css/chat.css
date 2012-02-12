@@ -1,19 +1,16 @@
 #chat {
-    margin: 10px;
     font-size: 15px;
+    
     
 }
 
 #messagesDiv {
     overflow: auto;
     height: 180px;
-    padding: 8px;
-    background-color: #474747;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    padding: 0px 15px 5px 15px;
+	background-color: #d7d7d7;
     text-shadow: none;
-    color: white;
-    
+    color: #474747;    
 }
 
 #messagesDiv em{
@@ -22,17 +19,14 @@
 }
 
 #messageInput {
-    background-color: #474747;
+	background-color: #d7d7d7;
     width: 100%;
     font-size: 15px;
-    padding: 3px;
-    color: white;
+    padding: 3px 15px 5px 15px;
+    color: #474747;
 	
 	border: 0;
     outline: none;
     outline-offset: 0;
-    
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
 }
 
