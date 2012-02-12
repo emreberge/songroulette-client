@@ -8,6 +8,7 @@ function getUser(userID) {
 
 
 function startTrackingTrackOfUser(userID, trackChangedTo) {
+		console.log("start " + userID);
     user = getUser(userID);
     userCallBackFunctionMap[userID] = function(childSnapshot){
 				var value = childSnapshot.val();
@@ -19,6 +20,7 @@ function startTrackingTrackOfUser(userID, trackChangedTo) {
 }
 
 function stopTrackingUser(userID) {
+		console.log("stop " + userID);
     getUser(userID).off('value', userCallBackFunctionMap[userID]);
     delete userCallBackFunctionMap[userID];
 }
