@@ -22,7 +22,7 @@ function startStalking(spotifyUserId){
                              });
 }
 
-function stopStalking(spotifyUserId){
-    stopTrackingUser(spotifyUserId);
+function stopStalking(){
+    stopTrackingUser();
     
 }

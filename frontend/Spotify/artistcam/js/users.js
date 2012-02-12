@@ -1,5 +1,7 @@
 var base = new Firebase('http://gamma.firebase.com/songroulette');
-var userCallBackFunctionMap = {}
+var userCallBackFunction;
+var stalkedUserId;
+
 
 
 function getUser(userID) {
@@ -8,21 +10,23 @@ function getUser(userID) {
 
 
 function startTrackingTrackOfUser(userID, trackChangedTo) {
-		console.log("start " + userID);
+    if(userCallBackFunction)
+        stopTrackingUser();
+        
     user = getUser(userID);
-    userCallBackFunctionMap[userID] = function(childSnapshot){
+    userCallBackFunction = function(childSnapshot){
 				var value = childSnapshot.val();
         if (value != null)
 					trackChangedTo(value.track);
     };
     
-    user.on('value', userCallBackFunctionMap[userID]);
+    user.on('value', userCallBackFunction);
+    stalkedUserId = userID;
 }
 
-function stopTrackingUser(userID) {
-		console.log("stop " + userID);
-    getUser(userID).off('value', userCallBackFunctionMap[userID]);
-    delete userCallBackFunctionMap[userID];
+function stopTrackingUser() {
+    getUser(stalkedUserId).off('value', userCallBackFunction);
+    userCallBackFunction = null;
 }
 
 function setMySong(myUserID, songID) {
