@@ -55,12 +55,13 @@ function sessionResolverHandler(sessionID, token, artistURI){
 }
 
 function doJoinRoom(sessionID, token) {
-	leaveCurrentRoom();
+	leaveCurrentRoom(sessionID);
 	joinANewRoom(sessionID, token);
 }
 
-function leaveCurrentRoom() {
+function leaveCurrentRoom(sessionID) {
 	disconnectCurrentSession();
+    stopChat(sessionID)
 }
 
 function joinANewRoom(sessionID, token) {
