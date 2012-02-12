@@ -99,10 +99,6 @@ function subscribeToStreams(streams) {
     var cam = document.createElement('div');
     cam.setAttribute('id', 'stream' + id);
     document.getElementById(id).appendChild(cam);
-
-    var info = document.createElement('div');
-    info.setAttribute('class', 'info');
-    document.getElementById(id).appendChild(info);
                        
     // Subscribe to the stream
     session.subscribe(streams[i], cam.id);

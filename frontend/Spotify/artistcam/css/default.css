@@ -1,10 +1,21 @@
 
 div#header
 {
-	background: black;
+	background-image: url('../img/bg.png');
+	background-repeat repeat-x;
 	margin: 0px;
-	padding: 15px;
+	padding: 0px;
 	height: 60px;
+	text-align: center;
+}
+
+div#artist
+{
+	background-color: #d7d7d7;
+	height: 20px;
+	padding: 15px;
+	font-size: 18px;
+	font-weight: bold;
 }
 
 div#content
@@ -13,8 +24,8 @@ div#content
 
 div#info
 {
-	vertical-align: bottom;
-	
+	position: relative;
+	bottom: 0px;
 }
 
 div.box

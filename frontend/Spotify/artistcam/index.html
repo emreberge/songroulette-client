@@ -8,12 +8,13 @@
 </head>
  
 <body onload="sp = getSpotifyApi(1); app = sp.require('js/app'); app.init();">
-  <div id="header"></div>
-	<div id="artist"></div>
+  <div id="header"><img src="../img/logo.png" /></div>
+  <div id="artist"></div>
   <div id="content">
   </div>
 </body>
 </html>
+<script src="sp://artistcam/js/tb.js"></script>
 
 <script>
 var test = document.createElement('p');
@@ -23,5 +24,3 @@ test.appendChild(text);
 document.getElementById('you').appendChild(test);
 
 </script>
-
-<script src="sp://artistcam/js/tb.js"></script>
