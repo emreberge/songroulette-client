@@ -44,7 +44,7 @@ function updateMyTrack() {
 		var connection = session.connection;
 		if (connection) {
 			songChanged(getTrack().uri);
-            setMySong(username, getTrack().uri);
+			setMySong(username, getTrack().uri);
 		}
 	}
 }
@@ -106,10 +106,6 @@ function onRoomChange (value) {
     }
 }
 
-function onTrackChangedHandler(track) {
-	console.log("OMG THIS IS NOT IMPLEMENTED! WHAT ARGUMENTS SHULD I TKE? Look in users.js");
-}
-
 function willLeaveRoom(session) {
   console.log("willLeaveRoom");
 	console.log(session);
@@ -135,5 +131,9 @@ function SessionEventListener() {
 
 	this.willEndSession = function (session) {
 		willLeaveRoom(session);
+	}
+
+	this.newConnectionEstablished = function (session) {
+		updateMyTrack();
 	}
 }
