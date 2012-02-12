@@ -6,16 +6,16 @@ var currentArtistURI;
 exports.init = init;
 
 function init() {
+	setSessionEventListener(new SessionEventListener());
+	updatePageWithTrackDetails();
 
-    updatePageWithTrackDetails();
+	player.observe(models.EVENT.CHANGE, function (e) {
 
-    player.observe(models.EVENT.CHANGE, function (e) {
-
-        // Only update the page if the track changed
-        if (e.data.curtrack == true) {
-            updatePageWithTrackDetails();
-        }
-    });
+			// Only update the page if the track changed
+			if (e.data.curtrack == true) {
+					updatePageWithTrackDetails();
+			}
+	});
 }
 
 function updatePageWithTrackDetails() {
@@ -66,7 +66,10 @@ function leaveCurrentRoom(sessionID) {
 
 function joinANewRoom(sessionID, token) {
 	connectWithSessionAndToken(sessionID, token);
-	startChat(sessionID,'Haxor');
+}
+
+function didJoinANewRoom(session) {
+	startChat(session.sessionId,'Haxor');
 }
 
 function TrackServiceHandler() {
@@ -76,5 +79,11 @@ function TrackServiceHandler() {
 
 	this.didPutTrack = function (responseText) {
 		console.log("didPutTrack with response: " + responseText);
+	}
+}
+
+function SessionEventListener() {
+	this.didStartSession = function (session) {
+		didJoinANewRoom(session);
 	}
 }
