@@ -10,14 +10,14 @@ function getUser(userID) {
 function startTrackingTrackOfUser(userID, trackChangedTo) {
     user = getUser(userID);
     userCallBackFunctionMap[userID] = function(childSnapshot){
-        trackChangedTo(childSnapshot.val());
+        trackChangedTo(childSnapshot.val().track);
     };
     
-    user.on('child_changed', userCallBackFunctionMap[userID]);
+    user.on('value', userCallBackFunctionMap[userID]);
 }
 
 function stopTrackingUser(userID) {
-    getUser(userID).off('child_changed', userCallBackFunctionMap[userID]);
+    getUser(userID).off('value', userCallBackFunctionMap[userID]);
     delete userCallBackFunctionMap[userID];
 }
 
