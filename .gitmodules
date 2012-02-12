@@ -1,3 +1,0 @@
-[submodule "Opentok-Ruby-SDK"]
-	path = Opentok-Ruby-SDK
-	url = git://github.com/opentok/Opentok-Ruby-SDK.git
