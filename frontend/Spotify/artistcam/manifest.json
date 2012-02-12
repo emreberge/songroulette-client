@@ -12,8 +12,9 @@
     "RequiredPermissions": [
         "http://*.opentok.com/", 
         "http://*.tokbox.com/",
-	"http://*.herokuapp.com/",
-	"http://*.firebase.com/",
-	"http://*.googleapis.com/"
+        "http://*.herokuapp.com/",
+        "http://*.firebase.com/",
+        "http://*.googleapis.com/",
+        "http://robohash.org/"
     ]
 }

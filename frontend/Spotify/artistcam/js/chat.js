@@ -8,7 +8,7 @@ function childAddedCallBack(childSnapshot) {
     // childSnapshot is the added object.  We'll extract the value and use it to append to
     // our messagesDiv.
     var message = childSnapshot.val();
-    $("#messagesDiv").append("<em>" + message.name + "</em>: " + message.text + "<br />");
+    $("#messagesDiv").append("<div id=\"chatLine\"><img src=\"http://robohash.org/" + message.name + ".png?size=25x25\"/>: " + message.text + "<br /></ div>");
     $('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
 }
 
@@ -25,10 +25,11 @@ function startChat(roomName, displayName) {
       chat.push({
         name:displayName,
         text:$("#messageInput").val()
-      });
+      }); 
       $("#messageInput").val("");
     }
   });
+    $("#messageInput").focus();
 }
 
 function stopChat(roomName) {
