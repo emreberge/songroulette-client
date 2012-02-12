@@ -61,7 +61,6 @@ function doJoinRoom(sessionID, token) {
 
 function leaveCurrentRoom(sessionID) {
 	disconnectCurrentSession();
-    stopChat(sessionID)
 }
 
 function joinANewRoom(sessionID, token) {
@@ -70,6 +69,12 @@ function joinANewRoom(sessionID, token) {
 
 function didJoinANewRoom(session) {
 	startChat(session.sessionId,'Haxor');
+	startTrackingTracks(session.sessionId, session.connection.connectionId);
+}
+
+function didLeaveRoom(session) {
+    stopChat(session.sessionId);
+    endTrackingTracks(session.sessionId, session.connection.connectionId);
 }
 
 function TrackServiceHandler() {
@@ -85,5 +90,9 @@ function TrackServiceHandler() {
 function SessionEventListener() {
 	this.didStartSession = function (session) {
 		didJoinANewRoom(session);
+	}
+    
+	this.didEndSession = function (session) {
+		didLeaveRoom(session);
 	}
 }
