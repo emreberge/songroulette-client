@@ -56,12 +56,16 @@ function sessionResolverHandler(sessionID, token, artistURI){
 
 function doJoinRoom(sessionID, token) {
 	leaveCurrentRoom();
-	connectWithSessionAndToken(sessionID, token);
-	startChat(sessionID,'Haxor');
+	joinANewRoom(sessionID, token);
 }
 
 function leaveCurrentRoom() {
 	disconnectCurrentSession();
+}
+
+function joinANewRoom(sessionID, token) {
+	connectWithSessionAndToken(sessionID, token);
+	startChat(sessionID,'Haxor');
 }
 
 function TrackServiceHandler() {
