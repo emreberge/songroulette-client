@@ -31,12 +31,14 @@ function updatePageWithTrackDetails() {
         header.innerText = "Start playing to see other people liste	ning to the same artist as you!";
     } else {
         var track = playerTrackInfo.data;
-				var artist = track.album.artist;
-				debug("currentArtistURI: " + currentArtistURI + ", artist.uri: " + artist.uri);
-				if (currentArtistURI != artist.uri){
-					joinRoomForArtistURI(artist.uri);
-				}
-				currentArtistURI = artist.uri;
+		//var artist = track.album.artist;
+		var artist = playerTrackInfo.data.artists[0];
+        
+        debug("currentArtistURI: " + currentArtistURI + ", artist.uri: " + artist.uri);
+		if (currentArtistURI != artist.uri){
+			joinRoomForArtistURI(artist.uri);
+		}
+		currentArtistURI = artist.uri;
         header.innerHTML = "People listening to " + artist.name;
     }
 }
