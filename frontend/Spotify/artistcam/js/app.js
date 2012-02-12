@@ -44,7 +44,3 @@ function joinRoomForArtistURI(artistURI){
 	debug("joining new room");
 	connect();
 }
-
-function debug (str) {
-	window.opentokdebug.debug("[ArtistCam]: " + str);
-}
