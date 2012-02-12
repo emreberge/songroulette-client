@@ -24,9 +24,14 @@ div#content
 
 div#info
 {
-	position: relative;
 	bottom: 0px;
-    
+}
+
+div.video {
+    float: none;
+    height: 200px;
+    width: 264px;
+
 }
 
 div.box
@@ -36,6 +41,7 @@ div.box
 	margin: 10px;
 	float: left;
 	height: 300px;
+    width: 264px;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
 

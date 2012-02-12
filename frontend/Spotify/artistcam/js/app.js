@@ -93,7 +93,10 @@ function didJoinANewRoom(session) {
 }
 
 function onRoomChange (value) {
-	console.log(value);
+    console.log(value);
+	for (var key in value) {
+        $('#' + key).find('.info').html("<a href=\"" + value[key].track + "\" >Music</a>");
+    }
 }
 
 function onTrackChangedHandler(track) {
