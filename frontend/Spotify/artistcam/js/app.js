@@ -53,6 +53,6 @@ function joinRoomForArtistURI(artistURI){
 function sessionResolverHandler(sessionID, token, artistURI){
 	if (currentArtistURI === artistURI) {
 		disconnectCurrentSession();
-		connectWithSession(sessionID);
+		connectWithSessionAndToken(sessionID, token);
 	}
 }
