@@ -69,7 +69,7 @@ function joinANewRoom(sessionID, token) {
 function didJoinANewRoom(session) {
 	console.log("didJoinANewRoom");
 	console.log(session);
-	startChat(session.sessionId,'Haxor');
+	startChat(currentArtistURI,'Haxor');
 //	startTrackingTrackOfUser(session.connection.connectionId, trackChangedHandler);
 }
 
@@ -80,7 +80,7 @@ function trackChangedHandler() {
 function willLeaveRoom(session) {
   console.log("willLeaveRoom");
 	console.log(session);
-	stopChat(session.sessionId);
+	stopChat(currentArtistURI);
 	stopTrackingUsersInSession(session);
 }
 
