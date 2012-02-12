@@ -62,6 +62,7 @@ function removeEverythingInContentDivAfterDisconnect() {
 var publisher;
 
 function sessionConnectedHandler(event) {
+	console.log(event);
   insertReplaceElementInContent();
   publisher = session.publish(replaceElementId);
   publisher.publishAudio(false);
@@ -124,4 +125,9 @@ function connectionDestroyedHandler(event) {
   var c = document.getElementById('content');
   var divId = document.getElementById(event.connections[0].connectionId);
   c.removeChild(divId);
+}
+
+function getSessionsConnectionID() {
+	console.log("session: " + session);
+	return session.connection.connectionId;
 }

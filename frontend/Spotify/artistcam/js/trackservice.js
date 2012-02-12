@@ -8,7 +8,7 @@ function AsyncTrackService(trackServiceHandler) {
 		this.serviceBase.fetchURL(url, this, getTrackCallback);
 	}
 	
-	this.getTrackCallback(responseText, self) {
+	this.getTrackCallback = function(responseText, self) {
 		self.trackServiceHandler.didGetTrack(responseText);
 	}
 	
@@ -17,7 +17,7 @@ function AsyncTrackService(trackServiceHandler) {
 		this.serviceBase.fetchURL(url, this, putTrackCallback);
 	}
 	
-	this.putTrackCallback(responseText, self) {
+	this.putTrackCallback = function(responseText, self) {
 		self.trackServiceHandler.didPutTrack(responseText);
 	}	
 }

@@ -19,32 +19,30 @@ function init() {
 }
 
 function updatePageWithTrackDetails() {
+	var header = document.getElementById('artist');
 
-    var header = document.getElementById('artist');
+	var isPlayingTrack = player.track != null;
 
-    // This will be null if nothing is playing.
-    var playerTrackInfo = player.track;
-
-    if (playerTrackInfo == null) {
-        header.innerText = "Start playing to see other people liste	ning to the same artist as you!";
-    } else {
-        var track = playerTrackInfo.data;
-		//var artist = track.album.artist;
-		var artist = playerTrackInfo.data.artists[0];
-        
-        debug("currentArtistURI: " + currentArtistURI + ", artist.uri: " + artist.uri);
+	if (isPlayingTrack) {
+		var track = getTrack();
+		var artist = track.artists[0];
 		if (currentArtistURI != artist.uri){
+			currentArtistURI = artist.uri;
 			joinRoomForArtistURI(artist.uri);
 		}
-		currentArtistURI = artist.uri;
-        header.innerHTML = "People listening to " + artist.name;
-    }
+		header.innerHTML = "People listening to " + artist.name;
+	} else {
+			header.innerText = "Start playing to see other people liste	ning to the same artist as you!";
+	}
+}
+
+function getTrack() {
+	return player.track.data;
 }
 
 var currentArtistURI;
 
 function joinRoomForArtistURI(artistURI){
-	currentArtistURI = artistURI;
 	debug("joining new room");
 	var sessionResolver = new AsyncSessionResolver(sessionResolverHandler);
 	sessionResolver.sessionIDAndTokenWithArtistURI(artistURI);
@@ -52,7 +50,24 @@ function joinRoomForArtistURI(artistURI){
 
 function sessionResolverHandler(sessionID, token, artistURI){
 	if (currentArtistURI === artistURI) {
+		doJoinRoom(sessionID, token);
+	}
+}
+
+function doJoinRoom(sessionID, token) {
 		disconnectCurrentSession();
 		connectWithSessionAndToken(sessionID, token);
+		//var trackService = new AsyncTrackService(new TrackServiceHandler());
+		//var connectionID = getSessionsConnectionID(); // ugly! :(
+		//trackService.putTrackForUserIDWithTrack(connectionID, getTrack().name);
+}
+
+function TrackServiceHandler() {
+	this.didGetTrack = function (responseText) {
+		console.log("didGetTrack with response: " + responseText);
+	}
+
+	this.didPutTrack = function (responseText) {
+		console.log("didPutTrack with response: " + responseText);
 	}
 }
