@@ -1,0 +1,42 @@
+body {
+  font-size: 25px;
+}
+
+input {
+  font-size: 25px;
+}
+
+#messagesDiv {
+  overflow: auto;
+  height: 230px;
+  width: 470px;
+  padding-bottom: 5px;
+  border: solid blue;
+}
+
+#nameInput {
+  width: 120px;
+  border: solid blue;
+}
+
+#messageInput {
+  width: 350px;
+  border: solid blue;
+}
+
+em {
+  font-style: normal;
+  font-weight: bold;
+  color: blue;
+}
+
+#leaderboardTable {
+  width: 300px;
+  padding-bottom: 5px;
+  border: solid green;
+}
+
+#scoreInput {
+  width: 177px;
+  border: solid green;
+}
