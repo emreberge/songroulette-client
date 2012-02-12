@@ -34,4 +34,6 @@ div.box
 	margin: 10px;
 	float: left;
 	height: 300px;
+    border-radius: 10px;
+
 }

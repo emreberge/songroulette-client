@@ -1,6 +1,6 @@
+var base = new Firebase('http://gamma.firebase.com/songroulette');
 
 function getChatForRoom(roomName) {
-    var base = new Firebase('http://gamma.firebase.com/songroulette');
     return  base.child(roomName).child('Chat') 
 }
 

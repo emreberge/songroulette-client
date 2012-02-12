@@ -1,7 +1,14 @@
-function startTrackingTracks(roomName, userID) {
+var base = new Firebase('http://gamma.firebase.com/songroulette');
 
+function getUser(userID) {
+    return  base.child('Users').child(userID); 
 }
 
-function endTrackingTracks(roomName, userID) {
+
+function startTrackingTrackOfUser(userID, trackChanged) {
+    
+}
+
+function stopTrackingUser(userID) {
 
 }
