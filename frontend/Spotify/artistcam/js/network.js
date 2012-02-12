@@ -1,47 +1,47 @@
 function SessionResolver() {
-
-	this.xmlHttpRequest = new XMLHttpRequest();
 	
-	this.baseURL = "http://host:port/request";
+	this.baseURL = "http://warm-samurai-3635.herokuapp.com";
 	
-	this.resolveSessionIdForArtistURI = function (artistURI) {
-		var url = this.baseURL.concat("/" + artistURI);
-		this.fetchURL(url);
+	this.sessionIdWithArtistURI = function (artistURI) {
+		var url = this.baseURL.concat("/sessionID/" + artistURI);
+		this.fetchSessionURL(url);
 	}
 	
-	this.resolveTokenWithSessionId = function (sessionId) {
-		var url = this.baseURL.concat("/" + sessionId);
-		this.fetchURL(url);
+	this.tokenWithSessionId = function (sessionId) {
+		var url = this.baseURL.concat("/token/" + sessionId);
+		//this.fetchTokenURL(url);
 	}
 	
-	this.fetchURL = function (url) {
+	this.fetchSessionURL = function (url) {
 		var self = this;
-		this.xmlHttpRequest.onreadystatechange = function(){
-        if (self.xmlHttpRequest.readyState==4){
-            if (self.xmlHttpRequest.status==200){
-                self.onRetrieveSuccess.call(self,self.xmlhttp.responseText);
+		var http = getHTTPObject();
+		console.log("url: " + url);
+    http.open("GET",url,true);
+		http.onreadystatechange = function(){
+        if (http.readyState==4){
+					console.log("http status: " + http.status + ", http.responseText: " + http.responseText);
+            if (http.status==200){
+                connectWithSession(http.responseText);
             }else{
-                self.onRetrieveError.call(self,self.xmlhttp.statusText);
+                self.onRetrieveSessionError(self,http.statusText);
             }
         }
     }
-    this.xmlHttpRequest.open("GET",url,true);
-    this.xmlHttpRequest.send(null);
+    http.send(null);
 	}
 
-	/*
-	* The method called when a resource is successfully retrieved.
-	*/
-	this.onRetrieveSuccess = function(responseText){
-			alert("onRetrieveSuccess method "+responseText);
+	function getHTTPObject() {
+    if (typeof XMLHttpRequest != 'undefined') {
+        return new XMLHttpRequest();
+    }
+    try {
+        return new ActiveXObject("Msxml2.XMLHTTP");
+    } catch (e) {
+        try {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        } catch (e) {}
+    }
+    return false;
 	}
- 
-	/*
-	* The method called when a resource is not created.
-	*/
-	this.onRetrieveError = function(statusText){
-			alert("onRetrieveError method "+statusText);
-	}
- 
 
 }

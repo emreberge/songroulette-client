@@ -5,6 +5,8 @@ var currentArtistURI;
 
 exports.init = init;
 
+var sessionResolver = new SessionResolver();
+
 function init() {
 
     updatePageWithTrackDetails();
@@ -42,5 +44,7 @@ function updatePageWithTrackDetails() {
 function joinRoomForArtistURI(artistURI){
 	disconnectCurrentSession();
 	debug("joining new room");
-	connect();
+	sessionResolver.sessionIdWithArtistURI(artistURI);
+	//var token = sessionResolver.tokenWithSessionId(sessionId);
+	//connectWithSession(sessionId);
 }
