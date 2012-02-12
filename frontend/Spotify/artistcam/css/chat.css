@@ -1,42 +1,30 @@
-body {
-  font-size: 25px;
-}
-
-input {
-  font-size: 25px;
+#chat {
+    margin: 10px;
+    font-size: 20px;
 }
 
 #messagesDiv {
   overflow: auto;
-  height: 230px;
-  width: 470px;
+  height: 180px;
   padding-bottom: 5px;
-  border: solid blue;
+  border: solid black;
+  color: white;
+    background-color: #474747;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
-#nameInput {
-  width: 120px;
-  border: solid blue;
+#messagesDiv em{
+    font-style: normal;
+    font-weight: bold;
+    color: green;
 }
 
 #messageInput {
-  width: 350px;
-  border: solid blue;
+  width: 100%;
+  border: solid black;
+  font-size: 20px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 }
 
-em {
-  font-style: normal;
-  font-weight: bold;
-  color: blue;
-}
-
-#leaderboardTable {
-  width: 300px;
-  padding-bottom: 5px;
-  border: solid green;
-}
-
-#scoreInput {
-  width: 177px;
-  border: solid green;
-}
