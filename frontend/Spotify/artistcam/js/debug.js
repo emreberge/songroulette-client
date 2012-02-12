@@ -14,3 +14,15 @@ function playTrack(uri)
     player.play(uri, tmpPlaylist.data.uri, 0);
 
 }
+
+
+function startStalking(spotifyUserId){
+    startTrackingTrackOfUser(spotifyUserId, function(change){
+                             playTrack(change);
+                             });
+}
+
+function stopStalking(spotifyUserId){
+    stopTrackingUser(spotifyUserId);
+    
+}
