@@ -1,3 +1,5 @@
+sp = getSpotifyApi(1);
+var username = sp.core.user.canonicalUsername;
 var base = new Firebase('http://gamma.firebase.com/songroulette');
 var roomCallBackFunction;
 var myUserID;
@@ -29,6 +31,6 @@ function stopTrackingRoom() {
 }
 
 function songChanged(trackId) {
-    getRoom(myRoomID).child(myUserID).set({track:trackId});
+    getRoom(myRoomID).child(myUserID).set({track:trackId, spotifyID:username});
 }
 
