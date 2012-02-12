@@ -94,7 +94,16 @@ function SessionEventListener() {
 	this.didStartSession = function (session) {
 		didJoinANewRoom(session);
 	}
+
 	this.willEndSession = function (session) {
 		willLeaveRoom(session);    
+	}
+
+	this.didEstablishNewConnection = function (connection) {
+
+	}
+
+	this.didDestroyConnection = function (connection) {
+
 	}
 }
