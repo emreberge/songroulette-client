@@ -47,12 +47,12 @@ function joinRoomForArtistURI(artistURI){
 	currentArtistURI = artistURI;
 	debug("joining new room");
 	var sessionResolver = new AsyncSessionResolver(sessionResolverHandler);
-	sessionResolver.sessionIdAndTokenWithArtistURI(artistURI);
+	sessionResolver.sessionIDAndTokenWithArtistURI(artistURI);
 }
 
-function sessionResolverHandler(sessionId, token, artistURI){
+function sessionResolverHandler(sessionID, token, artistURI){
 	if (currentArtistURI === artistURI) {
 		disconnectCurrentSession();
-		connectWithSession(sessionId);
+		connectWithSession(sessionID);
 	}
 }
