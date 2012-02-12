@@ -116,18 +116,7 @@ function SessionEventListener() {
 		didJoinANewRoom(session);
 	}
 
-	this.willEndSession = function (session, connections) {
+	this.willEndSession = function (session) {
 		willLeaveRoom(session);
-		for (var i = 0; i < connections.length; i++)
-			stopTrackingUser(connections[i].connectionId);
-	}
-
-	this.didEstablishNewConnection = function (connection) {
-		console.log(connection);
-		startTrackingTrackOfUser(connection.connectionId, onTrackChangedHandler);
-	}
-
-	this.didDestroyConnection = function (connection) {
-		stopTrackingUser(connection.connectionId);
 	}
 }
