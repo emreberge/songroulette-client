@@ -44,6 +44,7 @@ function updateMyTrack() {
 		var connection = session.connection;
 		if (connection) {
 			songChanged(getTrack().uri);
+            setMySong(username, getTrack().uri);
 		}
 	}
 }
