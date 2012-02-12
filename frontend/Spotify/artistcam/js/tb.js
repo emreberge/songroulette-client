@@ -13,8 +13,8 @@ var publisher;
 
 function sessionConnectedHandler(event) {
   publisher = session.publish('tokbox');
-
   publisher.publishAudio(false);
+
   // Subscribe to streams that were in the session when we connected
   subscribeToStreams(event.streams);
 }
@@ -42,6 +42,10 @@ function subscribeToStreams(streams) {
     var cam = document.createElement('div');
     cam.setAttribute('id', 'stream' + id);
     document.getElementById(id).appendChild(cam);
+
+    var info = document.createElement('div');
+    info.setAttribute('class', 'info');
+    document.getElementById(id).appendChild(info);
                        
     // Subscribe to the stream
     session.subscribe(streams[i], cam.id);

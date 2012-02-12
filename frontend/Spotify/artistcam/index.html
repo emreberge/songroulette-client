@@ -9,9 +9,21 @@
 <body onload="sp = getSpotifyApi(1); app = sp.require('js/app'); app.init();">
   <div id="header"></div>
   <div id="content">
-    <div id="tokbox"></div>
+    <div class="box" id="you"> 
+      <div id="tokbox"></div>
+      <div class"info"></div>
+    </div>
   </div>
 </body>
 </html>
+
+<script>
+var test = document.createElement('p');
+text = document.createTextNode("Hello World!");
+test.appendChild(text);
+
+document.getElementById('you').appendChild(test);
+
+</script>
 
 <script src="sp://artistcam/js/tb.js"></script>
