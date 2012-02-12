@@ -1,6 +1,7 @@
 sp = getSpotifyApi(1);
 var models = sp.require('sp://import/scripts/api/models');
 var player = models.player;
+var currentArtistURI;
 
 exports.init = init;
 
@@ -25,9 +26,19 @@ function updatePageWithTrackDetails() {
     var playerTrackInfo = player.track;
 
     if (playerTrackInfo == null) {
-        header.innerText = "Nothing playing!";
+        header.innerText = "Start playing to see other people liste	ning to the same artist as you!";
     } else {
         var track = playerTrackInfo.data;
-        header.innerHTML = "People listening to " + track.album.artist.name;
+				var artist = track.album.artist;
+				if (currentArtistURI != artist.uri){
+					joinRoomForArtistURI(artist.uri);
+				}
+				currentArtistURI = artist.uri;
+        header.innerHTML = "People listening to " + artist.name;
     }
+}
+
+function joinRoomForArtistURI(artistURI){
+	disconnectCurrentSession();
+	connect();
 }

@@ -1,13 +1,27 @@
-var apiKey = '1127';
+
+var apiKey = '11827172';
 var sessionId = '14685d1ac5907f4a2814fed28294d3f797f34955';
 var token = 'devtoken';           
- 
+var session = null;
 TB.setLogLevel(TB.DEBUG);     
 
-var session = TB.initSession(sessionId);      
-session.addEventListener('sessionConnected', sessionConnectedHandler);
-session.addEventListener('streamCreated', streamCreatedHandler);      
-session.connect(apiKey, token);
+
+
+function connect() {
+	connectWithSession(sessionId);
+}
+
+function connectWithSession(sessionId) {
+	session = TB.initSession(sessionId);      
+	session.addEventListener('sessionConnected', sessionConnectedHandler);
+	session.addEventListener('streamCreated', streamCreatedHandler);      
+	session.connect(apiKey, token);
+}
+
+function disconnectCurrentSession() {
+  if (session != null)
+		session.disconnect();
+}
 
 var publisher;
 
@@ -19,8 +33,8 @@ function sessionConnectedHandler(event) {
 }
  
 function streamCreatedHandler(event) {
-  // Subscribe to any new streams that are created
-  subscribeToStreams(event.streams);
+	// Subscribe to any new streams that are created
+	subscribeToStreams(event.streams);
 }
  
 function subscribeToStreams(streams) {
