@@ -57,6 +57,7 @@ function sessionResolverHandler(sessionID, token, artistURI){
 function doJoinRoom(sessionID, token) {
 		disconnectCurrentSession();
 		connectWithSessionAndToken(sessionID, token);
+        startChat(sessionID,'Haxor');
 		//var trackService = new AsyncTrackService(new TrackServiceHandler());
 		//var connectionID = getSessionsConnectionID(); // ugly! :(
 		//trackService.putTrackForUserIDWithTrack(connectionID, getTrack().name);
