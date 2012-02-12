@@ -9,6 +9,12 @@ TB.setLogLevel(TB.DEBUG);
 var isDisconnecting = false;
 var isWaitingToConnect = false;
 
+var sessionEventListener = null;
+
+function setSessionEventListener(eventListener) {
+	sessionEventListener = eventListener;
+}
+
 function connectWithSessionAndToken(sessionID, token) {
 	currentSessionID = sessionID
 	currentToken = token;
@@ -36,6 +42,7 @@ function disconnectCurrentSession() {
   if (session != null) {
 	  debug("disconnecting..");
 		isDisconnecting = true;
+		sessionEventListener.willEndSession(session);
 		session.disconnect();
 	}
 }
@@ -69,6 +76,13 @@ function sessionConnectedHandler(event) {
 
   // Subscribe to streams that were in the session when we connected
   subscribeToStreams(event.streams);
+	var _session = event.target;
+	console.log("Started session");
+	console.log(_session);
+	if (sessionEventListener === null)
+		console.log("Warning: sessionEventListener is null. Use setSessionEventListener and listen!");
+	else
+		sessionEventListener.didStartSession(_session);
 }
 
 function insertReplaceElementInContent() {

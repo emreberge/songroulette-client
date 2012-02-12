@@ -6,16 +6,16 @@ var currentArtistURI;
 exports.init = init;
 
 function init() {
+	setSessionEventListener(new SessionEventListener());
+	updatePageWithTrackDetails();
 
-    updatePageWithTrackDetails();
+	player.observe(models.EVENT.CHANGE, function (e) {
 
-    player.observe(models.EVENT.CHANGE, function (e) {
-
-        // Only update the page if the track changed
-        if (e.data.curtrack == true) {
-            updatePageWithTrackDetails();
-        }
-    });
+			// Only update the page if the track changed
+			if (e.data.curtrack == true) {
+					updatePageWithTrackDetails();
+			}
+	});
 }
 
 function updatePageWithTrackDetails() {
@@ -55,17 +55,26 @@ function sessionResolverHandler(sessionID, token, artistURI){
 }
 
 function doJoinRoom(sessionID, token) {
-	leaveCurrentRoom();
+	leaveCurrentRoom(sessionID);
 	joinANewRoom(sessionID, token);
 }
 
-function leaveCurrentRoom() {
+function leaveCurrentRoom(sessionID) {
 	disconnectCurrentSession();
 }
 
 function joinANewRoom(sessionID, token) {
 	connectWithSessionAndToken(sessionID, token);
-	startChat(sessionID,'Haxor');
+}
+
+function didJoinANewRoom(session) {
+	startChat(session.sessionId,'Haxor');
+	startTrackingTracks(session.sessionId, session.connection.connectionId);
+}
+
+function willLeaveRoom(session) {
+	stopChat(session.sessionId);
+	endTrackingTracks(session.sessionId, session.connection.connectionId);
 }
 
 function TrackServiceHandler() {
@@ -75,5 +84,14 @@ function TrackServiceHandler() {
 
 	this.didPutTrack = function (responseText) {
 		console.log("didPutTrack with response: " + responseText);
+	}
+}
+
+function SessionEventListener() {
+	this.didStartSession = function (session) {
+		didJoinANewRoom(session);
+	}
+	this.willEndSession = function (session) {
+		willLeaveRoom(session);    
 	}
 }
