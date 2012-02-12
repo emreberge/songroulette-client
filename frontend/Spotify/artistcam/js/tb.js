@@ -110,7 +110,7 @@ function insertReplaceElementInContent() {
 	var tokboxDiv = document.createElement('div');
 	tokboxDiv.setAttribute('id',replaceElementId);
 
-	var infoDiv = document.createElement('div');
+	var infoDiv = document.createElement('p');
 	infoDiv.setAttribute('class', 'info');
 
 	boxDiv.appendChild(tokboxDiv);
@@ -137,10 +137,14 @@ function subscribeToStreams(streams) {
     box.setAttribute('id', connectionId);
     box.setAttribute('class', 'box');
     document.getElementById('content').appendChild(box);
-
+    
+      var video = document.createElement('div');
+      video.setAttribute('class', 'video');
+      box.appendChild(video);
+    
     var cam = document.createElement('div');
     cam.setAttribute('id', 'stream' + id);
-    document.getElementById(connectionId).appendChild(cam);
+    video.appendChild(cam);
 
 		var infoDiv = document.createElement('div');
 		infoDiv.setAttribute('class', 'info');
