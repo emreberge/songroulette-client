@@ -4,7 +4,7 @@ var currentSessionID = '';
 var currentToken = '';
 var session = null;
 var replaceElementId = 'tokbox';
-TB.setLogLevel(TB.DEBUG);
+//TB.setLogLevel(TB.DEBUG);
 
 var isConnecting = false;
 var isDisconnecting = false;
@@ -104,16 +104,21 @@ function sessionConnectedHandler(event) {
 
 function insertReplaceElementInContent() {
 	var boxDiv = document.createElement('div');
-	boxDiv.setAttribute('id', 'you');
+	boxDiv.setAttribute('id', session.connection.connectionId);
 	boxDiv.setAttribute('class', 'box');
+
+	var video = document.createElement('div');
+	video.setAttribute('class', 'video');
+	boxDiv.appendChild(video);
+
 
 	var tokboxDiv = document.createElement('div');
 	tokboxDiv.setAttribute('id',replaceElementId);
 
-	var infoDiv = document.createElement('p');
+	var infoDiv = document.createElement('div');
 	infoDiv.setAttribute('class', 'info');
 
-	boxDiv.appendChild(tokboxDiv);
+	video.appendChild(tokboxDiv);
 	boxDiv.appendChild(infoDiv);
 	document.getElementById('content').appendChild(boxDiv);
 }
