@@ -1,21 +1,30 @@
+#chat {
+    margin: 10px;
+    font-size: 20px;
+}
+
 #messagesDiv {
-  font-size: 20px;
   overflow: auto;
   height: 230px;
-  width: 100%;
   padding-bottom: 5px;
   border: solid black;
-    color: grey;
+  color: white;
+    background-color: #474747;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
+
+#messagesDiv em{
+    font-style: normal;
+    font-weight: bold;
+    color: green;
 }
 
 #messageInput {
   width: 100%;
   border: solid black;
-  font-size: 25px;
+  font-size: 20px;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 
-#messagesDiv em{
-  font-style: normal;
-  font-weight: bold;
-  color: green;
-}
