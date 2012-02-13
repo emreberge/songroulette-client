@@ -31,6 +31,8 @@ function stopTrackingRoom() {
 }
 
 function songChanged(trackId) {
-    getRoom(myRoomID).child(myUserID).set({track:trackId, spotifyID:username});
+    user = getRoom(myRoomID).child(myUserID);
+    user.set({track:trackId, spotifyID:username});
+    user.removeOnDisconnect();
 }
 
