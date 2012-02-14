@@ -15,9 +15,9 @@ function startTrackingTrackOfUser(userID, trackChangedTo) {
         
     user = getUser(userID);
     userCallBackFunction = function(childSnapshot){
-				var value = childSnapshot.val();
+	var value = childSnapshot.val();
         if (value != null)
-					trackChangedTo(value.track);
+		trackChangedTo(value.track);
     };
     
     user.on('value', userCallBackFunction);
@@ -30,5 +30,7 @@ function stopTrackingUser() {
 }
 
 function setMySong(myUserID, songID) {
-    getUser(myUserID).set({track:songID});
+    user = getUser(myUserID);
+    user.set({track:songID});
+    user.removeOnDisconnect();
 }
