@@ -94,7 +94,9 @@ function didJoinANewRoom(session) {
 	updateMyTrack();
 }
 
+var roomValues;
 function onRoomChange (value) {
+	roomValues = value;
 	for (var key in value) {
         var t = models.Track.fromURI(value[key].track, function(v) {
 
@@ -137,6 +139,6 @@ function SessionEventListener() {
 	}
 
 	this.newConnectionEstablished = function () {
-		updateMyTrack();
+		onRoomChange(roomValues);
 	}
 }

@@ -40,7 +40,6 @@ function connectWithCurrentSessionID() {
 	session.addEventListener('sessionConnected', sessionConnectedHandler);
 	session.addEventListener('sessionDisconnected', sessionDisconnectedHandler);
 	session.addEventListener('streamCreated', streamCreatedHandler);
-	session.addEventListener('connectionCreated', connectionCreatedHandler);
 	session.addEventListener('connectionDestroyed', connectionDestroyedHandler);
 	session.connect(apiKey, currentToken);
 }
@@ -130,6 +129,7 @@ function insertReplaceElementInContent() {
 function streamCreatedHandler(event) {
 	// Subscribe to any new streams that are created
 	subscribeToStreams(event.streams);
+  	sessionEventListener.newConnectionEstablished();
 }
  
 function subscribeToStreams(streams) {
@@ -171,10 +171,6 @@ function subscribeToStreams(streams) {
     // Subscribe to the stream
     session.subscribe(streams[i], cam.id);
   }
-}
-
-function connectionCreatedHandler(event) {
-  sessionEventListener.newConnectionEstablished();
 }
 
 function connectionDestroyedHandler(event) {
