@@ -1,4 +1,4 @@
-Artist Cam
+Song Roulette
 ==========
 
 This project is made at San Francisco music hack day, February 11 2012.
